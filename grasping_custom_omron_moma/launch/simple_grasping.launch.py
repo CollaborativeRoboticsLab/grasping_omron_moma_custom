@@ -9,7 +9,7 @@ from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description() -> LaunchDescription:
 	grasping_control_share = get_package_share_directory('grasping_control')
-	grasping_omron_moma_share = get_package_share_directory('grasping_omron_moma')
+	grasping_custom_omron_moma_share = get_package_share_directory('grasping_custom_omron_moma')
 
 	default_sequence = '[[pose, pre_grasp], [pose, workspace_center], [gripper, open], [pose, grasp_pose], [gripper, close], [pose, post_grasp]]'
 
@@ -34,7 +34,7 @@ def generate_launch_description() -> LaunchDescription:
 		[
 			DeclareLaunchArgument(
 				'motion_config_file',
-				default_value=str(Path(grasping_omron_moma_share) / 'config' / 'motion_config.yaml'),
+				default_value=str(Path(grasping_custom_omron_moma_share) / 'config' / 'motion_config.yaml'),
 			),
 			DeclareLaunchArgument('sequence', default_value=default_sequence),
 			DeclareLaunchArgument('open_position', default_value='0.09'),

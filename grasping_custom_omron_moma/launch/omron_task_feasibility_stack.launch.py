@@ -8,11 +8,11 @@ from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description() -> LaunchDescription:
-    grasping_omron_moma_share = get_package_share_directory('grasping_omron_moma')
+    grasping_custom_omron_moma_share = get_package_share_directory('grasping_custom_omron_moma')
 
     grasping_bringup = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            str(Path(grasping_omron_moma_share) / 'launch' / 'ld250_tm12x_soft_two_fingers.launch.py')
+            str(Path(grasping_custom_omron_moma_share) / 'launch' / 'ld250_tm12x_soft_two_fingers.launch.py')
         ),
         launch_arguments={
             'use_demo': LaunchConfiguration('use_demo'),
@@ -29,7 +29,7 @@ def generate_launch_description() -> LaunchDescription:
 
     task_feasibility = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            str(Path(grasping_omron_moma_share) / 'launch' / 'task_feasibility.launch.py')
+            str(Path(grasping_custom_omron_moma_share) / 'launch' / 'task_feasibility.launch.py')
         ),
         launch_arguments={
             'config_file': LaunchConfiguration('task_feasibility_config_file'),
@@ -41,15 +41,15 @@ def generate_launch_description() -> LaunchDescription:
             DeclareLaunchArgument('use_demo', default_value='false'),
             DeclareLaunchArgument(
                 'motion_config_file',
-                default_value=str(Path(grasping_omron_moma_share) / 'config' / 'motion_config.yaml'),
+                default_value=str(Path(grasping_custom_omron_moma_share) / 'config' / 'motion_config.yaml'),
             ),
             DeclareLaunchArgument(
                 'workspace_file',
-                default_value=str(Path(grasping_omron_moma_share) / 'config' / 'crlab_table.yaml'),
+                default_value=str(Path(grasping_custom_omron_moma_share) / 'config' / 'crlab_table.yaml'),
             ),
             DeclareLaunchArgument(
                 'task_feasibility_config_file',
-                default_value=str(Path(grasping_omron_moma_share) / 'config' / 'task_feasibility.yaml'),
+                default_value=str(Path(grasping_custom_omron_moma_share) / 'config' / 'task_feasibility.yaml'),
             ),
             DeclareLaunchArgument('use_base', default_value='false'),
             DeclareLaunchArgument('use_nav2', default_value='false'),

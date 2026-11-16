@@ -8,7 +8,7 @@ from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description() -> LaunchDescription:
-    grasping_omron_moma_share = get_package_share_directory('grasping_omron_moma')
+    grasping_custom_omron_moma_share = get_package_share_directory('grasping_custom_omron_moma')
     mobile_manipulator_control_share = get_package_share_directory('mobile_manipulator_control')
 
     generic_launch = IncludeLaunchDescription(
@@ -24,7 +24,7 @@ def generate_launch_description() -> LaunchDescription:
         [
             DeclareLaunchArgument(
                 'config_file',
-                default_value=str(Path(grasping_omron_moma_share) / 'config' / 'mobile_manipulator_control.yaml'),
+                default_value=str(Path(grasping_custom_omron_moma_share) / 'config' / 'mobile_manipulator_control.yaml'),
             ),
             generic_launch,
         ]

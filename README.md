@@ -2,7 +2,7 @@
 
 This repository extends the [CollaborativeRoboticsLab/grasping](https://github.com/CollaborativeRoboticsLab/grasping) stack and uses it along with [CollaborativeRoboticsLab/mobile_manipulator](https://github.com/CollaborativeRoboticsLab/mobile_manipulator) stack to perform mobile manipulator based grasping for the Omron MOMA mobile manipulator with a TM12X arm and a soft two-finger gripper.
 
-It holds robot specific launch and configuration in `grasping_omron_moma` while reusing the generic grasping runtime from `grasping_control` and the generic mobile-manipulator runtime from `mobile_manipulator_ros`.
+It holds robot specific launch and configuration in `grasping_custom_omron_moma` while reusing the generic grasping runtime from `grasping_control` and the generic mobile-manipulator runtime from `mobile_manipulator_ros`.
 
 ![system overview](./docs/system.png)
 
@@ -26,21 +26,21 @@ Bring up the Omron grasping stack on hardware:
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma ld250_tm12x_soft_two_fingers.launch.py
+ros2 launch grasping_custom_omron_moma ld250_tm12x_soft_two_fingers.launch.py
 ```
 
 Run in demo mode:
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma ld250_tm12x_soft_two_fingers.launch.py use_demo:=true
+ros2 launch grasping_custom_omron_moma ld250_tm12x_soft_two_fingers.launch.py use_demo:=true
 ```
 
 Enable the mobile base and Nav2 when needed (manipulator is enabled by default):
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma ld250_tm12x_soft_two_fingers.launch.py use_base:=true use_nav2:=true
+ros2 launch grasping_custom_omron_moma ld250_tm12x_soft_two_fingers.launch.py use_base:=true use_nav2:=true
 ```
 
 If you only want the raw arm, gripper, and MoveIt bringup without the grasping wrapper, you can still launch the MoveIt package directly:
@@ -56,14 +56,14 @@ Bring up the Omron grasping stack together with the standalone mobile-manipulato
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma omron_task_feasibility_stack.launch.py
+ros2 launch grasping_custom_omron_moma omron_task_feasibility_stack.launch.py
 ```
 
 For demo mode:
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma omron_task_feasibility_stack.launch.py use_demo:=true
+ros2 launch grasping_custom_omron_moma omron_task_feasibility_stack.launch.py use_demo:=true
 ```
 
 This launch starts:
@@ -79,7 +79,7 @@ Run the simple named-pose grasping sequence after the motion stack is already ru
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma simple_grasping.launch.py
+ros2 launch grasping_custom_omron_moma simple_grasping.launch.py
 ```
 
 The default sequence is:
@@ -94,19 +94,19 @@ If the grasp target may require moving the base before arm execution, start the 
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma task_feasibility.launch.py
+ros2 launch grasping_custom_omron_moma task_feasibility.launch.py
 ```
 
 To run the Omron test client against that runtime:
 
 ```bash
 source install/setup.bash
-ros2 launch grasping_omron_moma mobile_manipulator_control.launch.py
+ros2 launch grasping_custom_omron_moma mobile_manipulator_control.launch.py
 ```
 
 ## Configuration
 
-`grasping_omron_moma/config/motion_config.yaml` uses the current `motion_execution_node` schema from `grasping_control`.
+`grasping_custom_omron_moma/config/motion_config.yaml` uses the current `motion_execution_node` schema from `grasping_control`.
 
 Tune these fields before using the sequence on a real robot:
 
@@ -119,11 +119,11 @@ Tune these fields before using the sequence on a real robot:
 
 `simple_grasping.launch.py` expects the named poses `pre_grasp`, `workspace_center`, `grasp_pose`, and `post_grasp` to exist in `motion_config.yaml`.
 
-`grasping_omron_moma/config/crlab_table.yaml` defines the workspace objects and the planar workspace acceptance area used by `motion_execution_node`.
+`grasping_custom_omron_moma/config/crlab_table.yaml` defines the workspace objects and the planar workspace acceptance area used by `motion_execution_node`.
 
 ## Notes
 
-- `grasping_omron_moma` is the standalone Omron-facing wrapper for both the grasping stack and the Omron mobile-manipulator runtime entry points.
+- `grasping_custom_omron_moma` is the standalone Omron-facing wrapper for both the grasping stack and the Omron mobile-manipulator runtime entry points.
 - Generic motion execution, named-pose handling, joint-pose handling, and workspace validation live in `grasping_control`.
 - Generic task-feasibility runtime and test-client logic live in `mobile_manipulator_ros` and `mobile_manipulator_control`.
 - The default named poses in `motion_config.yaml` are placeholders and should be calibrated on the real robot.

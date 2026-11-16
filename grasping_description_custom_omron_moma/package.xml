@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>grasping_description_omron_moma</name>
+  <name>grasping_description_custom_omron_moma</name>
   <version>0.1.0</version>
   <description>URDF/xacro descriptions and meshes for robotic arm and gripper assemblies on Omron MOMA</description>
   <maintainer email="kalanaratnayake95@gmail.com">ubuntu</maintainer>

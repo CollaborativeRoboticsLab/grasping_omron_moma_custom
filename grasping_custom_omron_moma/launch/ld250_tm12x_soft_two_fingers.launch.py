@@ -10,13 +10,13 @@ from launch.substitutions import AndSubstitution, LaunchConfiguration, NotSubsti
 
 def generate_launch_description() -> LaunchDescription:
 	grasping_control_share = get_package_share_directory('grasping_control')
-	grasping_omron_moma_share = get_package_share_directory('grasping_omron_moma')
+	grasping_custom_omron_moma_share = get_package_share_directory('grasping_custom_omron_moma')
 	ld250_tm12x_moveit_config_share = get_package_share_directory(
 		'ld250_tm12x_soft_two_fingers_moveit_config'
 	)
 	moma_ros_share = get_package_share_directory('moma_ros')
 	default_motion_config_file = str(
-		Path(grasping_omron_moma_share) / 'config' / 'motion_config.yaml'
+		Path(grasping_custom_omron_moma_share) / 'config' / 'motion_config.yaml'
 	)
 	default_workspace_file = 'config/crlab_table.yaml'
 
@@ -84,7 +84,7 @@ def generate_launch_description() -> LaunchDescription:
 			'motion_config_file': LaunchConfiguration('motion_config_file'),
 			'workspace_file': LaunchConfiguration('workspace_file'),
 			'default_scene_name': 'crlab_table',
-			'default_scene_package': 'grasping_omron_moma',
+			'default_scene_package': 'grasping_custom_omron_moma',
 			'launch_feasiblity_service': 'true',
 		}.items(),
 	)
