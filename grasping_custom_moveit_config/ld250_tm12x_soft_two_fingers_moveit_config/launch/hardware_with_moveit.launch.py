@@ -9,6 +9,7 @@ from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -25,6 +26,7 @@ def generate_launch_description():
     tm_use_simulation = LaunchConfiguration("tm_use_simulation")
     no_logging = LaunchConfiguration("no_logging")
     launch_servo = LaunchConfiguration("launch_servo")
+    use_sim_time = ParameterValue(LaunchConfiguration("use_sim_time"), value_type=bool)
     motor_params_file = LaunchConfiguration("motor_params_file")
     gripper_params_file = LaunchConfiguration("gripper_params_file")
 
@@ -64,7 +66,7 @@ def generate_launch_description():
         package="moveit_ros_move_group",
         executable="move_group",
         output="screen",
-        parameters=[moveit_config.to_dict(), {"use_sim_time": True}],
+        parameters=[moveit_config.to_dict(), {"use_sim_time": use_sim_time}],
     )
 
     servo_params = {
@@ -98,7 +100,7 @@ def generate_launch_description():
             moveit_config.planning_pipelines,
             moveit_config.robot_description_kinematics,
             moveit_config.joint_limits,
-            {"use_sim_time": True},
+            {"use_sim_time": use_sim_time},
         ],
     )
 
@@ -185,6 +187,11 @@ def generate_launch_description():
             declare_use_simulation,
             declare_no_logging,
             declare_launch_servo,
+            DeclareLaunchArgument(
+                "use_sim_time",
+                default_value="false",
+                description="Use the ROS simulation clock for MoveIt and RViz.",
+            ),
             DeclareLaunchArgument(
                 "motor_params_file",
                 default_value=os.path.join(gripper_ros_share, "config", "servos", "dynamixel.yaml"),
